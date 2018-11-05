@@ -1,0 +1,11 @@
+var x_1 integer;
+var x_2 integer;
+var x_3 integer;
+maximize Profit : 65*x_1 +  80*x_2 + 30*x_2;
+subject to Capacity : 2 *x_1 + 3*x_2 + x_3 <= 5;
+subject to binary_1_1: x_1 >= 0;
+subject to binary_1_2: x_1 <= 1;
+subject to binary_2_1: x_2 >= 0;
+subject to binary_2_2: x_2 <= 1;
+subject to binary_3_1: x_3 >= 0;
+subject to binary_3_2: x_3 <= 1;

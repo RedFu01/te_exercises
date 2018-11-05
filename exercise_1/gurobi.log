@@ -1,0 +1,26 @@
+
+Gurobi 8.1.0 (mac64, Python) logging started Thu Oct 25 09:02:45 2018
+
+Academic license - for non-commercial use only
+Optimize a model with 3 rows, 2 columns and 4 nonzeros
+Variable types: 0 continuous, 2 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-03, 1e+00]
+  Objective range  [2e+01, 3e+01]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [4e+01, 6e+03]
+Found heuristic solution: objective 192000.00000
+Presolve removed 2 rows and 0 columns
+Presolve time: 0.02s
+Presolved: 1 rows, 2 columns, 2 nonzeros
+Variable types: 0 continuous, 2 integer (0 binary)
+
+Root relaxation: cutoff, 0 iterations, 0.00 seconds
+
+Explored 0 nodes (0 simplex iterations) in 0.04 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 1: 192000 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.920000000000e+05, best bound 1.920000000000e+05, gap 0.0000%
