@@ -66,19 +66,16 @@ def get_new_population(graph, old_population, path_options):
     size = len(new_population)
     return new_population[size-11: -1]
     
-
-
 def do_generation(graph, population, path_options, depth = 0):
     cost = get_cost(graph, population[9]["encoding"], path_options)
     print('Current best: ', cost)
-    if cost <= 17 or depth > 10000:
+    if cost <= 17 or depth > 1000:
         print('DONE')
         return population[9]["encoding"]
     else:
         new_population = get_new_population(graph, population, path_options)
         do_generation(graph, new_population, path_options, depth +1)
     pass
-
 
 def get_decision_index(arr):
     return int(2 * arr[0] + arr[1])
@@ -97,12 +94,13 @@ def get_cost(graph, encoding, path_options):
                 key = 'path_' + str(s) + '-' + str(d)
                 current_path_options = path_options[key]
                 if current_path_decision > len(current_path_options)-1:
-                    # print('inf')
-                    current_path_decision = current_path_decision -1
+                    # encoding does not represent a valid path
+                    # current_path_decision = current_path_decision -1
                     return math.inf
 
                 current_path = current_path_options[current_path_decision]
                 
+                # compute traffic demand per link from the chosen paths
                 for i in range(len(current_path)-1):
                     link_start = current_path[i]
                     link_end = current_path[i+1]
@@ -136,8 +134,8 @@ def get_cost(graph, encoding, path_options):
         cost += c_1 * 2.5 + c_2
     return cost
 
-
 def run_genetic_algorithm():
+    # construct the network
     G = nx.Graph()
     G.add_edge(0, 1)
     G.add_edge(1, 2)
@@ -147,23 +145,22 @@ def run_genetic_algorithm():
     G.add_edge(3, 4)
     G.add_edge(4, 5)
 
+    # plot network
     # nx.draw(G, with_labels = True)
     # plt.show()
 
     nodes = G.nodes()
 
+    # compute all simple paths for all combinations of s and d
     path_options = {}
-
     for s in nodes:
         for d in nodes:
             if d != s:
                 name = 'path_' + str(s) + '-' + str(d)
                 path_options[name] = list(nx.all_simple_paths(G, source=s, target=d))
 
-    print('Number of pathes ', len(path_options))
-
+    # create first population
     population = []
-
     # initialize with random decision
     for _ in range(10):
         # 2 bit as decision for every encoding
@@ -173,8 +170,8 @@ def run_genetic_algorithm():
         population.append(encoding)
         population = sorted(population, key=lambda x: x["cost"], reverse=True)
 
+    # kick off recursion
     do_generation(G, population, path_options)
     pass
-
 
 run_genetic_algorithm()

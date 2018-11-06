@@ -71,7 +71,7 @@ def get_new_population(graph, old_population, path_options):
 def do_generation(graph, population, path_options, depth = 0):
     cost = population[9]["cost"]
     print('Current best: ', cost)
-    if cost <= 1 or depth > 100000:
+    if cost <= 1 or depth > 1000:
         print('\n#########################\n\nBest Solution', cost )
         return population[9]["encoding"]
     else:
