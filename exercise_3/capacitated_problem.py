@@ -26,7 +26,7 @@ def crossover(e_1, e_2):
 def create_encoding_obj(graph, encoding, path_options):
     return {
         "encoding": encoding,
-        "cost": get_cost(graph, encoding, path_options)
+        "cost": get_utilization(graph, encoding, path_options)
     }
 
 def get_random_encoding(length):
@@ -69,10 +69,10 @@ def get_new_population(graph, old_population, path_options):
 
 
 def do_generation(graph, population, path_options, depth = 0):
-    cost = get_cost(graph, population[9]["encoding"], path_options)
+    cost = population[9]["cost"]
     print('Current best: ', cost)
-    if cost <= 17 or depth > 10000:
-        print('DONE')
+    if cost <= 1 or depth > 100000:
+        print('\n#########################\n\nBest Solution', cost )
         return population[9]["encoding"]
     else:
         new_population = get_new_population(graph, population, path_options)
@@ -83,7 +83,7 @@ def do_generation(graph, population, path_options, depth = 0):
 def get_decision_index(arr):
     return int(2 * arr[0] + arr[1])
 
-def get_cost(graph, encoding, path_options):
+def get_utilization(graph, encoding, path_options):
     nodes = graph.nodes()
     edges_in = {}
     edges_out = {}
@@ -98,7 +98,7 @@ def get_cost(graph, encoding, path_options):
                 current_path_options = path_options[key]
                 if current_path_decision > len(current_path_options)-1:
                     # print('inf')
-                    current_path_decision = current_path_decision -1
+                    # current_path_decision = current_path_decision -1
                     return math.inf
 
                 current_path = current_path_options[current_path_decision]
